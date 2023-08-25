@@ -1,0 +1,81 @@
+<div class="container">
+  <h1>Email Template Form</h1>
+
+  <div>
+    <label for="template">Select Postmark Template:</label>
+    <select id="template" [(ngModel)]="selectedTemplate">
+      <option value="">-- Select Template --</option>
+      <option *ngFor="let template of templates" [value]="template.TemplateId">
+        {{ template.Name }} - {{template.TemplateId}}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="emailType">Select Email Type:</label>
+    <select id="emailType" [(ngModel)]="selectedEmailType">
+      <option value="">-- Select Email Type --</option>
+      <option *ngFor="let type of emailTypes" [value]="type.email_type_id">
+        {{ type.email_type }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="label">Label:</label>
+    <input type="text" id="label" [(ngModel)]="label" />
+  </div>
+
+  <div>
+    <button type="button" [disabled]="!isFormValid() || isSaving" (click)="handleSave()">
+      Create New Version
+    </button>
+  </div>
+</div>
+
+
+<div class="container">
+  <h1>Send Email</h1>
+
+  <div>
+    <label for="emailType">Select Email Type:</label>
+    <select id="emailType" [(ngModel)]="selectedEmailType" (change)="onEmailTypeSelected()">
+      <option value="">-- Select Email Type --</option>
+      <option *ngFor="let type of emailTypes" [value]="type.email_type_id">
+        {{ type.email_type }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="emailType">Select Version:</label>
+    <select id="emailType" [(ngModel)]="selectedVersion">
+      <option value="">-- Select Version Type --</option>
+      <option *ngFor="let version of emailVersions" [value]="version.version_id">
+        {{ version.version_label }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="label">Send To:</label>
+    <input type="text" id="label" [(ngModel)]="sendTo" />
+  </div>
+
+  <div>
+    <button type="button" [disabled]="!isSendEmailFormValid() || isSaving" (click)="sendEmail()">
+      Send Email
+    </button>
+  </div>
+</div>
+
+
+<div>
+  <h1>New Email Type</h1>
+  <label>New email type name</label>
+  <input type="text" id="label" [(ngModel)]="newEmailType" />
+  <label>New email type postmark id</label>
+  <input type="text" id="label" [(ngModel)]="newEmailTypePostmarkId" />
+  <button [disabled]="newEmailType =='' || newEmailTypePostmarkId=='' " (click)="createNewEmailType()">Save New Email
+    Type</button>
+</div>
